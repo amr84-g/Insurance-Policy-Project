@@ -1,0 +1,526 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/object-views https://axelor.com/xml/ns/object-views/object-views_8.2.xsd">
+
+  <selection name="insurance.policy.type">
+    <option value="direct">Direct</option>
+    <option value="individual">Individual</option>
+    <option value="group">Group</option>
+  </selection>
+  <selection name="insurance.type">
+    <option value="general">General</option>
+    <option value="life">Life</option>
+    <option value="health">Health</option>
+    <option value="property">Property</option>
+    <option value="motor">Motor</option>
+    <option value="other">Other</option>
+  </selection>
+  <selection name="insurance.policy.payment.status">
+    <option value="unpaid">Unpaid</option>
+    <option value="partially-paid">Partially paid</option>
+    <option value="paid">Paid</option>
+  </selection>
+  <selection name="insurance.policy.status">
+    <option value="draft">Draft</option>
+    <option value="active">Active</option>
+    <option value="suspended">Suspended</option>
+    <option value="expired">Expired</option>
+    <option value="cancelled">Cancelled</option>
+  </selection>
+  <selection name="insurance.policy.lifecycle.status">
+    <option value="draft">Draft</option>
+    <option value="active">Active</option>
+    <option value="closed">Closed</option>
+  </selection>
+  <selection name="insurance.activity.type">
+    <option value="new-business">New business</option>
+    <option value="renewal">Renewal</option>
+    <option value="endorsement">Endorsement</option>
+    <option value="cancellation">Cancellation</option>
+  </selection>
+  <selection name="insurance.activity.status">
+    <option value="draft">Draft</option>
+    <option value="active">Active</option>
+    <option value="closed">Closed</option>
+    <option value="cancelled">Cancelled</option>
+  </selection>
+  <selection name="insurance.section.lifecycle.status">
+    <option value="draft">Draft</option>
+    <option value="pending">Pending</option>
+    <option value="approved">Approved</option>
+    <option value="cancelled">Cancelled</option>
+  </selection>
+  <selection name="insurance.installment.lifecycle.status">
+    <option value="pending">Pending</option>
+    <option value="collected">Collected</option>
+    <option value="cancelled">Cancelled</option>
+  </selection>
+  <selection name="insurance.commission.type">
+    <option value="normal">Normal</option>
+    <option value="fixed">Fixed</option>
+    <option value="percentage">Percentage</option>
+  </selection>
+  <selection name="insurance.commission.invoice.status">
+    <option value="draft">Draft</option>
+    <option value="pending">Pending</option>
+    <option value="paid">Paid</option>
+    <option value="cancelled">Cancelled</option>
+  </selection>
+  <selection name="insurance.accident.status">
+    <option value="reported">Reported</option>
+    <option value="under-review">Under review</option>
+    <option value="closed">Closed</option>
+  </selection>
+  <selection name="insurance.accident.severity">
+    <option value="low">Low</option>
+    <option value="medium">Medium</option>
+    <option value="high">High</option>
+    <option value="critical">Critical</option>
+  </selection>
+  <selection name="insurance.accident.type">
+    <option value="personal-injury">Personal injury</option>
+    <option value="property-damage">Property damage</option>
+    <option value="other">Other</option>
+  </selection>
+  <selection name="insurance.claim.type">
+    <option value="medical">Medical</option>
+    <option value="property">Property</option>
+    <option value="other">Other</option>
+  </selection>
+
+  <cards name="insurance-policy-cards" title="Insurance Policies"
+    model="com.axelor.apps.insurance.policy.db.PolicyTable" width="32%">
+    <field name="policyId"/>
+    <field name="customer.simpleFullName"/>
+    <field name="typeOfPolicy"/>
+    <field name="insuranceType"/>
+    <field name="sector"/>
+    <field name="issueDate"/>
+    <field name="effectiveDate"/>
+    <field name="endDate"/>
+    <field name="policyStatus"/>
+    <field name="status"/>
+    <template><![CDATA[
+      <>
+        <Box style={{ border: "1px solid #e2e8f0", borderRadius: 12, overflow: "hidden", backgroundColor: "#ffffff", boxShadow: "0 4px 14px rgba(15, 23, 42, 0.08)" }}>
+          <Box style={{ height: 4, backgroundColor: policyStatus == 'active' ? "#16a34a" : policyStatus == 'cancelled' || policyStatus == 'expired' ? "#dc2626" : "#2563eb" }}/>
+          <Box p={3}>
+            <Box d="flex" justifyContent="between" alignItems="flex-start" mb={3}>
+              <Box style={{ minWidth: 0 }}>
+                <small style={{ color: "#64748b", textTransform: "uppercase", letterSpacing: "0.08em" }}>{_t('Insurance Policy')}</small>
+                <h4 style={{ margin: "4px 0", color: "#0f172a" }}>{policyId || _t('Policy')}</h4>
+                <Box style={{ color: "#475569", fontSize: 14 }}>{customer?.simpleFullName || _t('No customer')}</Box>
+              </Box>
+              <Box d="flex" flexDirection="column" gap={1} alignItems="flex-end">
+                {policyStatus && <Badge bg={policyStatus == 'active' ? 'success' : policyStatus == 'cancelled' || policyStatus == 'expired' ? 'danger' : 'secondary'}>{policyStatus}</Badge>}
+                {status && <Badge bg={status == 'paid' ? 'success' : status == 'unpaid' ? 'warning' : 'info'}>{status}</Badge>}
+              </Box>
+            </Box>
+            <Box d="grid" gridTemplateColumns="1fr 1fr" gap={2} style={{ padding: 12, borderRadius: 8, backgroundColor: "#f8fafc" }}>
+              <Box>
+                <small style={{ color: "#64748b" }}>{_t('Type of Policy')}</small>
+                <Box style={{ color: "#0f172a", fontWeight: 600 }}>{typeOfPolicy || '-'}</Box>
+              </Box>
+              <Box>
+                <small style={{ color: "#64748b" }}>{_t('Insurance Type')}</small>
+                <Box style={{ color: "#0f172a", fontWeight: 600 }}>{insuranceType || '-'}</Box>
+              </Box>
+              <Box>
+                <small style={{ color: "#64748b" }}>{_t('Sector')}</small>
+                <Box style={{ color: "#0f172a", fontWeight: 600 }}>{sector || '-'}</Box>
+              </Box>
+              <Box>
+                <small style={{ color: "#64748b" }}>{_t('Issue Date')}</small>
+                <Box style={{ color: "#0f172a" }}>{issueDate ? $moment(issueDate).format('YYYY-MM-DD') : '-'}</Box>
+              </Box>
+              <Box>
+                <small style={{ color: "#64748b" }}>{_t('Effective Date')}</small>
+                <Box style={{ color: "#0f172a" }}>{effectiveDate ? $moment(effectiveDate).format('YYYY-MM-DD') : '-'}</Box>
+              </Box>
+              <Box>
+                <small style={{ color: "#64748b" }}>{_t('End Date')}</small>
+                <Box style={{ color: "#0f172a" }}>{endDate ? $moment(endDate).format('YYYY-MM-DD') : '-'}</Box>
+              </Box>
+            </Box>
+          </Box>
+        </Box>
+      </>
+    ]]></template>
+  </cards>
+
+  <form name="insurance-policy-form" title="Insurance Policy"
+    model="com.axelor.apps.insurance.policy.db.PolicyTable">
+    <panel name="policyGeneralPanel" title="Policy General" colSpan="12">
+      <field name="policyId" colSpan="4"/>
+      <field name="customer" colSpan="4"/>
+      <field name="customerId" colSpan="4"/>
+      <field name="typeOfPolicy" colSpan="4"/>
+      <field name="insuranceType" colSpan="4"/>
+      <field name="sector" colSpan="4"/>
+      <field name="productOfInsurance" colSpan="4"/>
+      <field name="customerAccount" colSpan="4"/>
+      <field name="bookRatedGroup" colSpan="4"/>
+      <field name="zone" colSpan="4"/>
+      <field name="branch" colSpan="4"/>
+      <field name="branchName" colSpan="4"/>
+      <field name="marketSource" colSpan="4"/>
+      <field name="issueDate" colSpan="4"/>
+      <field name="effectiveDate" colSpan="4"/>
+      <field name="endDate" colSpan="4"/>
+      <field name="status" colSpan="4"/>
+      <field name="policyStatus" colSpan="4"/>
+      <field name="policyLifecycleStatus" colSpan="4"/>
+      <field name="description" colSpan="12" widget="html"/>
+    </panel>
+    <panel-tabs name="policyRelatedTabs">
+      <panel name="policyActivitiesPanel" title="Activities" colSpan="12">
+        <panel-related name="activityListPanel" field="activityList"
+          grid-view="insurance-activity-grid" form-view="insurance-activity-form" colSpan="12"/>
+      </panel>
+    </panel-tabs>
+  </form>
+
+  <grid name="insurance-activity-grid" title="Activities"
+    model="com.axelor.apps.insurance.policy.db.ActivityTable">
+    <field name="activityId" width="140"/>
+    <field name="activityType" width="140"/>
+    <field name="activityDate" width="120"/>
+    <field name="activityStatus" width="130"/>
+    <field name="effectiveDate" width="120"/>
+    <field name="endDate" width="120"/>
+    <field name="issueDate" width="120"/>
+    <field name="createdOn" title="Created date/time" width="160"/>
+  </grid>
+
+  <form name="insurance-activity-form" title="Activity"
+    model="com.axelor.apps.insurance.policy.db.ActivityTable">
+    <panel name="activityPanel" title="Activity Details" colSpan="12">
+      <field name="activityId" colSpan="4"/>
+      <field name="policy" colSpan="4"/>
+      <field name="policyId" colSpan="4"/>
+      <field name="activityType" colSpan="4"/>
+      <field name="activityDate" colSpan="4"/>
+      <field name="activityStatus" colSpan="4"/>
+      <field name="status" colSpan="4"/>
+      <field name="effectiveDate" colSpan="4"/>
+      <field name="endDate" colSpan="4"/>
+      <field name="issueDate" colSpan="4"/>
+      <field name="claimJournalNum" colSpan="4"/>
+      <field name="collected" colSpan="4"/>
+      <field name="refundFlag" colSpan="4"/>
+      <field name="activityKey" colSpan="4"/>
+      <field name="vendorId" colSpan="4"/>
+      <field name="netAmount" colSpan="4"/>
+      <field name="createdOn" colSpan="4" readonly="true"/>
+    </panel>
+    <panel-tabs name="activityDetailsTabs">
+      <panel name="activitySectionsPanel" title="Sections" colSpan="12">
+        <panel-related name="sectionListPanel" field="sectionList"
+          grid-view="insurance-section-grid" form-view="insurance-section-form" colSpan="12"/>
+      </panel>
+      <panel name="activityAccidentsPanel" title="Activity Accidents" colSpan="12">
+        <panel-related name="accidentListPanel" field="accidentList"
+          grid-view="insurance-accident-grid" form-view="insurance-accident-form" colSpan="12"/>
+      </panel>
+      <panel name="activityClaimsPanel" title="Activity Claims" colSpan="12">
+        <panel-related name="claimListPanel" field="claimList"
+          grid-view="insurance-claim-grid" form-view="insurance-claim-form" colSpan="12"/>
+      </panel>
+    </panel-tabs>
+  </form>
+
+  <grid name="insurance-section-grid" title="Sections"
+    model="com.axelor.apps.insurance.policy.db.SectionTable">
+    <field name="sectionId" width="140"/>
+    <field name="invoiceId" width="140"/>
+    <field name="currencyCode" width="110"/>
+    <field name="amount" width="130"/>
+    <field name="dueDate" width="120"/>
+    <field name="sectionDate" width="120"/>
+    <field name="createdOn" title="Created date/time" width="160"/>
+    <field name="sectionLifecycleStatus" title="Section Status" width="130"/>
+    <field name="approveAccident" width="120"/>
+  </grid>
+
+  <form name="insurance-section-form" title="Section"
+    model="com.axelor.apps.insurance.policy.db.SectionTable">
+    <panel name="sectionPanel" title="Section">
+      <field name="sectionId" colSpan="4"/>
+      <field name="activity" colSpan="4"/>
+      <field name="activityId" colSpan="4"/>
+      <field name="invoiceId" colSpan="4"/>
+      <field name="currencyCode" colSpan="4"/>
+      <field name="amount" colSpan="4"/>
+      <field name="dueDate" colSpan="4"/>
+      <field name="dueRate" colSpan="4"/>
+      <field name="sectionDate" colSpan="4"/>
+      <field name="sectionLifecycleStatus" colSpan="4"/>
+      <field name="egPayment" colSpan="4"/>
+      <field name="allowInstallment" colSpan="4"/>
+      <field name="approveAccident" colSpan="4"/>
+      <field name="createdOn" colSpan="4" readonly="true"/>
+    </panel>
+    <panel-tabs name="sectionDetailsTabs">
+      <panel name="sectionInstallmentsPanel" title="Section Installments" colSpan="12">
+        <panel-related name="installmentListPanel" field="installmentList"
+          grid-view="insurance-installment-grid" form-view="insurance-installment-form" colSpan="12"/>
+      </panel>
+      <panel name="sectionBrokersPanel" title="Section Brokers" colSpan="12">
+        <panel-related name="brokerListPanel" field="brokerList"
+          grid-view="insurance-broker-grid" form-view="insurance-broker-form" colSpan="12"/>
+      </panel>
+      <panel name="commissionInvoicesPanel" title="Commission Invoices" colSpan="12">
+        <panel-related name="commissionInvoiceListPanel" field="commissionInvoiceList"
+          grid-view="insurance-commission-invoice-grid"
+          form-view="insurance-commission-invoice-form" colSpan="12"/>
+      </panel>
+    </panel-tabs>
+  </form>
+
+  <grid name="insurance-installment-grid" title="Section Installments"
+    model="com.axelor.apps.insurance.policy.db.InstallmentTable">
+    <field name="installmentAmount" width="140"/>
+    <field name="dueDate" width="120"/>
+    <field name="collected" width="100"/>
+    <field name="approveAccident" width="120"/>
+    <field name="convertedToAmanat" title="Convert To Amanat" width="140"/>
+    <field name="journalNum" width="140"/>
+    <field name="cancelJournalNum" title="Cancel Journal Num" width="150"/>
+    <field name="amanatJournalNum" title="Amanat Journal Num" width="150"/>
+    <field name="dxcIntegration" title="DXC Integration" width="130"/>
+    <field name="collectionDate" width="130"/>
+    <field name="approvalDate" width="130"/>
+    <field name="cancellationDescription" width="220"/>
+    <field name="installmentLifecycleStatus" title="Status" width="120"/>
+  </grid>
+
+  <form name="insurance-installment-form" title="Section Installment"
+    model="com.axelor.apps.insurance.policy.db.InstallmentTable">
+    <panel name="installmentPanel" title="Installment">
+      <field name="installmentId" colSpan="4"/>
+      <field name="section" colSpan="4"/>
+      <field name="sectionId" colSpan="4"/>
+      <field name="installmentAmount" colSpan="4"/>
+      <field name="custTransOpenRefRecId" colSpan="4"/>
+      <field name="dueDate" colSpan="4"/>
+      <field name="collected" colSpan="4"/>
+      <field name="approveAccident" colSpan="4"/>
+      <field name="journalNum" colSpan="4"/>
+      <field name="cancelled" colSpan="4"/>
+      <field name="dxcIntegration" colSpan="4"/>
+      <field name="collectionDate" colSpan="4"/>
+      <field name="approvalDate" colSpan="4"/>
+      <field name="cancelJournalNum" colSpan="4"/>
+      <field name="amanatJournalNum" colSpan="4"/>
+      <field name="convertedToAmanat" colSpan="4"/>
+      <field name="installmentLifecycleStatus" colSpan="4"/>
+      <field name="relationshipName" colSpan="4"/>
+      <field name="cancellationDescription" colSpan="12" widget="html"/>
+    </panel>
+    <panel name="installmentLinesPanel" title="Lines" colSpan="12">
+      <panel-related name="lineListPanel" field="lineList"
+        grid-view="insurance-installment-line-grid" form-view="insurance-installment-line-form"
+        colSpan="12"/>
+    </panel>
+  </form>
+
+  <grid name="insurance-installment-line-grid" title="Installment Lines"
+    model="com.axelor.apps.insurance.policy.db.InstallmentLine">
+    <field name="amount"/>
+    <field name="aprId"/>
+    <field name="aprKey"/>
+    <field name="description"/>
+  </grid>
+
+  <form name="insurance-installment-line-form" title="Installment Line"
+    model="com.axelor.apps.insurance.policy.db.InstallmentLine">
+    <panel name="installmentLinePanel" title="Installment Line">
+      <field name="installment" colSpan="4"/>
+      <field name="amount" colSpan="4"/>
+      <field name="aprId" colSpan="4"/>
+      <field name="aprKey" colSpan="4"/>
+      <field name="description" colSpan="12"/>
+    </panel>
+  </form>
+
+  <grid name="insurance-broker-grid" title="Section Brokers"
+    model="com.axelor.apps.insurance.policy.db.SectionBrokerTable">
+    <field name="brokerId" width="130"/>
+    <field name="broker.simpleFullName" title="Broker Name" width="180"/>
+    <field name="brokerShare" width="120"/>
+    <field name="commissionAmount" width="140"/>
+    <field name="commissionPercentage" width="150"/>
+    <field name="commissionType" width="130"/>
+    <field name="brokerCode" width="130"/>
+    <field name="grossSection" width="130"/>
+    <field name="policySectionId" width="160"/>
+  </grid>
+
+  <form name="insurance-broker-form" title="Section Broker"
+    model="com.axelor.apps.insurance.policy.db.SectionBrokerTable">
+    <panel name="brokerPanel" title="Section Broker">
+      <field name="section" colSpan="4"/>
+      <field name="sectionId" colSpan="4"/>
+      <field name="brokerId" colSpan="4"/>
+      <field name="broker" colSpan="4"/>
+      <field name="commissionAmount" colSpan="4"/>
+      <field name="commissionPercentage" colSpan="4"/>
+      <field name="commissionType" colSpan="4"/>
+      <field name="commissionKey" colSpan="4"/>
+      <field name="brokerShare" colSpan="4"/>
+      <field name="brokerCode" colSpan="4"/>
+      <field name="grossSection" colSpan="4"/>
+      <field name="policySectionId" colSpan="4"/>
+    </panel>
+  </form>
+
+  <grid name="insurance-commission-invoice-grid" title="Commission Invoices"
+    model="com.axelor.apps.insurance.policy.db.CommissionInvoice">
+    <field name="brokerId" width="130"/>
+    <field name="broker.simpleFullName" title="Broker Name" width="180"/>
+    <field name="journalNum" width="140"/>
+    <field name="commissionAmount" width="140"/>
+    <field name="commissionType" width="130"/>
+    <field name="paid" width="90"/>
+    <field name="paymentJournalNum" title="Payment Journal Number" width="170"/>
+    <field name="createdOn" title="Created date/time" width="160"/>
+    <field name="createdBy" title="Created by" width="150"/>
+    <field name="paymentBatchRecId" title="Payment Batch Id" width="150"/>
+  </grid>
+
+  <form name="insurance-commission-invoice-form" title="Commission Invoice"
+    model="com.axelor.apps.insurance.policy.db.CommissionInvoice">
+    <panel name="commissionInvoicePanel" title="Commission Invoice">
+      <field name="section" colSpan="4"/>
+      <field name="sectionId" colSpan="4"/>
+      <field name="broker" colSpan="4"/>
+      <field name="brokerId" colSpan="4"/>
+      <field name="journalNum" colSpan="4"/>
+      <field name="commissionAmount" colSpan="4"/>
+      <field name="commissionType" colSpan="4"/>
+      <field name="paid" colSpan="4"/>
+      <field name="paymentJournalNum" colSpan="4"/>
+      <field name="paymentBatchRecId" colSpan="4"/>
+      <field name="status" colSpan="4"/>
+      <field name="paymentMethod" colSpan="4"/>
+      <field name="installmentRecId" colSpan="4"/>
+      <field name="installmentAmount" colSpan="4"/>
+      <field name="currencyCode" colSpan="4"/>
+      <field name="collectionCurrencyCode" colSpan="4"/>
+      <field name="exchangeRate" colSpan="4"/>
+      <field name="rate" colSpan="4"/>
+      <field name="collectionExpenseDays" colSpan="4"/>
+      <field name="collectionExpenseRate" colSpan="4"/>
+      <field name="checkDate" colSpan="4"/>
+      <field name="transDate" colSpan="4"/>
+      <field name="collectionDate" colSpan="4"/>
+      <field name="commissionAmountInTax" colSpan="4"/>
+      <field name="taxGroup" colSpan="4"/>
+      <field name="taxCode" colSpan="4"/>
+      <field name="reviewed" colSpan="4"/>
+      <field name="approved" colSpan="4"/>
+      <field name="branch" colSpan="4"/>
+      <field name="regoin" colSpan="4"/>
+      <field name="sector" colSpan="4"/>
+      <field name="lineOfBusiness" colSpan="4"/>
+      <field name="productOfInsurance" colSpan="4"/>
+      <field name="policyId" colSpan="4"/>
+      <field name="activityId" colSpan="4"/>
+      <field name="grossSection" colSpan="4"/>
+      <field name="issueDate" colSpan="4"/>
+      <field name="effectiveDate" colSpan="4"/>
+      <field name="isCanceled" colSpan="4"/>
+      <field name="paymentBatchRecIdDisplay" colSpan="4"/>
+      <field name="vendGroup" colSpan="4"/>
+      <field name="brokerShare" colSpan="4"/>
+      <field name="sectionBrokerCommissionType" colSpan="4"/>
+      <field name="createdOn" colSpan="4" readonly="true"/>
+      <field name="createdBy" colSpan="4" readonly="true"/>
+    </panel>
+  </form>
+
+  <grid name="insurance-accident-grid" title="Activity Accidents"
+    model="com.axelor.apps.insurance.policy.db.AccidentTable">
+    <field name="accidentId" width="140"/>
+    <field name="accidentDate" width="120"/>
+    <field name="reportedDate" width="120"/>
+    <field name="accidentType" width="150"/>
+    <field name="severity" width="110"/>
+    <field name="status" title="Accident Status" width="130"/>
+    <field name="location" width="180"/>
+    <field name="description" title="Accident Description" width="240"/>
+  </grid>
+
+  <form name="insurance-accident-form" title="Activity Accident"
+    model="com.axelor.apps.insurance.policy.db.AccidentTable">
+    <panel name="accidentPanel" title="Accident">
+      <field name="activity" colSpan="4"/>
+      <field name="activityId" colSpan="4"/>
+      <field name="accidentId" colSpan="4"/>
+      <field name="accidentDate" colSpan="4"/>
+      <field name="reportedDate" colSpan="4"/>
+      <field name="closedDate" colSpan="4"/>
+      <field name="accidentType" colSpan="4"/>
+      <field name="severity" colSpan="4"/>
+      <field name="status" colSpan="4"/>
+      <field name="location" colSpan="12"/>
+      <field name="description" colSpan="12" widget="html"/>
+    </panel>
+    <panel-tabs name="accidentDetailsTabs">
+      <panel name="accidentClaimsPanel" title="Claims" colSpan="12">
+        <panel-related name="accidentClaimListPanel" field="claimList"
+          grid-view="insurance-claim-grid" form-view="insurance-claim-form" colSpan="12"/>
+      </panel>
+    </panel-tabs>
+  </form>
+
+  <grid name="insurance-claim-grid" title="Activity Claims"
+    model="com.axelor.apps.insurance.policy.db.AccidentClaim">
+    <field name="accidentId" width="140"/>
+    <field name="accidentDate" width="120"/>
+    <field name="claimDate" width="120"/>
+    <field name="amount" width="130"/>
+    <field name="journalNum" width="140"/>
+    <field name="paymentJournalNum" width="160"/>
+    <field name="claimType" width="130"/>
+    <field name="isConditionalPayment" title="Is Conditional Payment" width="170"/>
+    <field name="paid" width="90"/>
+    <field name="dxcIntegration" title="DXC Integration" width="130"/>
+    <field name="movementId" width="140"/>
+    <field name="originalMovementKey" width="170"/>
+    <field name="refundedAmount" width="140"/>
+    <field name="refundJournalNum" title="Refund Journal Num" width="160"/>
+  </grid>
+
+  <form name="insurance-claim-form" title="Activity Claim"
+    model="com.axelor.apps.insurance.policy.db.AccidentClaim">
+    <panel name="claimPanel" title="Claim">
+      <field name="accident" colSpan="4"/>
+      <field name="accidentId" colSpan="4"/>
+      <field name="activity" colSpan="4"/>
+      <field name="activityId" colSpan="4"/>
+      <field name="policyId" colSpan="4"/>
+      <field name="claimNumber" colSpan="4"/>
+      <field name="claimType" colSpan="4"/>
+      <field name="claimDate" colSpan="4"/>
+      <field name="accidentDate" colSpan="4"/>
+      <field name="amount" colSpan="4"/>
+      <field name="paid" colSpan="4"/>
+      <field name="journalNum" colSpan="4"/>
+      <field name="paymentJournalNum" colSpan="4"/>
+      <field name="isConditionalPayment" colSpan="4"/>
+      <field name="dxcIntegration" colSpan="4"/>
+      <field name="movementId" colSpan="4"/>
+      <field name="originalMovementKey" colSpan="4"/>
+      <field name="isRefund" colSpan="4"/>
+      <field name="refundedAmount" colSpan="4"/>
+      <field name="refundJournalNum" colSpan="4"/>
+      <field name="aprId" colSpan="4"/>
+      <field name="batchId" colSpan="4"/>
+      <field name="batchDate" colSpan="4"/>
+      <field name="taxAmount" colSpan="4"/>
+      <field name="taxCode" colSpan="4"/>
+    </panel>
+  </form>
+</object-views>

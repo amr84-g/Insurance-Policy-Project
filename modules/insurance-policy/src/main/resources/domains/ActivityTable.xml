@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domain-models xmlns="http://axelor.com/xml/ns/domain-models"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/domain-models https://axelor.com/xml/ns/domain-models/domain-models_8.2.xsd">
+  <module name="insurance-policy" package="com.axelor.apps.insurance.policy.db"/>
+
+  <entity name="ActivityTable">
+    <string name="activityId" title="Activity Id"/>
+    <string name="policyId" title="Policy Id"/>
+    <many-to-one name="policy" title="Policy"
+      ref="com.axelor.apps.insurance.policy.db.PolicyTable"/>
+    <string name="activityType" title="Activity Type" selection="insurance.activity.type"/>
+    <date name="activityDate" title="Activity Date"/>
+    <string name="claimJournalNum" title="Claim Journal Number"/>
+    <boolean name="collected" title="Collected"/>
+    <date name="endDate" title="End Date"/>
+    <date name="issueDate" title="Issue Date"/>
+    <date name="effectiveDate" title="Effective Date"/>
+    <string name="status" title="Status" selection="insurance.activity.status"/>
+    <string name="activityStatus" title="Activity Status"
+      selection="insurance.activity.status"/>
+    <string name="activityKey" title="Activity Key"/>
+    <boolean name="refundFlag" title="Refund Flag"/>
+    <string name="vendorId" title="Vendor Id"/>
+    <decimal name="netAmount" title="Net Amount"/>
+    <one-to-many name="sectionList" title="Sections"
+      ref="com.axelor.apps.insurance.policy.db.SectionTable" mappedBy="activity"/>
+    <one-to-many name="accidentList" title="Activity Accidents"
+      ref="com.axelor.apps.insurance.policy.db.AccidentTable" mappedBy="activity"/>
+    <one-to-many name="claimList" title="Activity Claims"
+      ref="com.axelor.apps.insurance.policy.db.AccidentClaim" mappedBy="activity"/>
+  </entity>
+</domain-models>

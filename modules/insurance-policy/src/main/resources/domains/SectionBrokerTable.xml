@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domain-models xmlns="http://axelor.com/xml/ns/domain-models"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/domain-models https://axelor.com/xml/ns/domain-models/domain-models_8.2.xsd">
+  <module name="insurance-policy" package="com.axelor.apps.insurance.policy.db"/>
+
+  <entity name="SectionBrokerTable">
+    <string name="sectionId" title="Section Id"/>
+    <many-to-one name="section" title="Section"
+      ref="com.axelor.apps.insurance.policy.db.SectionTable"/>
+    <string name="brokerId" title="Broker Id"/>
+    <string name="commissionKey" title="Commission Key"/>
+    <many-to-one name="broker" title="Broker" ref="com.axelor.apps.base.db.Partner"/>
+    <decimal name="commissionAmount" title="Commission Amount"/>
+    <decimal name="commissionPercentage" title="Commission Percentage"/>
+    <string name="commissionType" title="Commission Type"
+      selection="insurance.commission.type"/>
+    <decimal name="brokerShare" title="Broker Share"/>
+    <string name="brokerCode" title="Broker Code"/>
+    <decimal name="grossSection" title="Gross Section"/>
+    <string name="policySectionId" title="Policy Section Id"/>
+  </entity>
+</domain-models>

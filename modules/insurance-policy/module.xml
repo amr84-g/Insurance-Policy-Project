@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="insurance-policy" title="Insurance Policy" version="1.0.0">
+  <depends name="axelor-base"/>
+</module>

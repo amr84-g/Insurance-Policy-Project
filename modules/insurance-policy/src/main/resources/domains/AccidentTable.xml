@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domain-models xmlns="http://axelor.com/xml/ns/domain-models"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/domain-models https://axelor.com/xml/ns/domain-models/domain-models_8.2.xsd">
+  <module name="insurance-policy" package="com.axelor.apps.insurance.policy.db"/>
+
+  <entity name="AccidentTable">
+    <string name="activityId" title="Activity Id"/>
+    <many-to-one name="activity" title="Activity"
+      ref="com.axelor.apps.insurance.policy.db.ActivityTable"/>
+    <string name="accidentId" title="Accident Id"/>
+    <string name="status" title="Accident Status" selection="insurance.accident.status"/>
+    <string name="description" title="Accident Description" large="true"/>
+    <date name="accidentDate" title="Accident Date"/>
+    <date name="reportedDate" title="Reported Date"/>
+    <date name="closedDate" title="Closed Date"/>
+    <string name="location" title="Location"/>
+    <string name="severity" title="Severity" selection="insurance.accident.severity"/>
+    <string name="accidentType" title="Accident Type" selection="insurance.accident.type"/>
+    <one-to-many name="claimList" title="Claims"
+      ref="com.axelor.apps.insurance.policy.db.AccidentClaim" mappedBy="accident"/>
+  </entity>
+</domain-models>

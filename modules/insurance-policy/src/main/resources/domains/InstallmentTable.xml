@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domain-models xmlns="http://axelor.com/xml/ns/domain-models"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/domain-models https://axelor.com/xml/ns/domain-models/domain-models_8.2.xsd">
+  <module name="insurance-policy" package="com.axelor.apps.insurance.policy.db"/>
+
+  <entity name="InstallmentTable">
+    <string name="installmentId" title="Installment Id"/>
+    <string name="sectionId" title="Section Id"/>
+    <many-to-one name="section" title="Section"
+      ref="com.axelor.apps.insurance.policy.db.SectionTable"/>
+    <decimal name="installmentAmount" title="Installment Amount"/>
+    <string name="custTransOpenRefRecId" title="Customer Transaction Open Reference Id"/>
+    <date name="dueDate" title="Due Date"/>
+    <boolean name="collected" title="Collected"/>
+    <boolean name="approveAccident" title="Approve Accident"/>
+    <string name="journalNum" title="Journal Number"/>
+    <boolean name="cancelled" title="Cancelled"/>
+    <boolean name="dxcIntegration" title="DXC Integration"/>
+    <date name="collectionDate" title="Collection Date"/>
+    <date name="approvalDate" title="Approval Date"/>
+    <string name="cancelJournalNum" title="Cancel Journal Number"/>
+    <string name="amanatJournalNum" title="Amanat Journal Number"/>
+    <boolean name="convertedToAmanat" title="Convert To Amanat"/>
+    <string name="cancellationDescription" title="Cancellation Description" large="true"/>
+    <string name="installmentLifecycleStatus" title="Status"
+      selection="insurance.installment.lifecycle.status"/>
+    <string name="relationshipName" title="Relationship Name"/>
+    <one-to-many name="lineList" title="Lines"
+      ref="com.axelor.apps.insurance.policy.db.InstallmentLine" mappedBy="installment"/>
+  </entity>
+</domain-models>

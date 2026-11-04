@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domain-models xmlns="http://axelor.com/xml/ns/domain-models"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/domain-models https://axelor.com/xml/ns/domain-models/domain-models_8.2.xsd">
+  <module name="insurance-policy" package="com.axelor.apps.insurance.policy.db"/>
+
+  <entity name="InstallmentLine">
+    <decimal name="amount" title="Amount"/>
+    <string name="aprId" title="APR Id"/>
+    <string name="aprKey" title="APR Key"/>
+    <string name="description" title="Description" large="true"/>
+    <many-to-one name="installment" title="Installment"
+      ref="com.axelor.apps.insurance.policy.db.InstallmentTable"/>
+  </entity>
+</domain-models>

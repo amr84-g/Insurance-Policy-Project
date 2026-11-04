@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domain-models xmlns="http://axelor.com/xml/ns/domain-models"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/domain-models https://axelor.com/xml/ns/domain-models/domain-models_8.2.xsd">
+  <module name="insurance-policy" package="com.axelor.apps.insurance.policy.db"/>
+
+  <entity name="SectionTable">
+    <string name="sectionId" title="Section Id"/>
+    <string name="activityId" title="Activity Id"/>
+    <many-to-one name="activity" title="Activity"
+      ref="com.axelor.apps.insurance.policy.db.ActivityTable"/>
+    <string name="invoiceId" title="Invoice Id"/>
+    <decimal name="dueRate" title="Due Rate"/>
+    <date name="dueDate" title="Due Date"/>
+    <string name="currencyCode" title="Currency Code"/>
+    <decimal name="amount" title="Amount"/>
+    <date name="sectionDate" title="Section Date"/>
+    <boolean name="egPayment" title="EG Payment"/>
+    <boolean name="allowInstallment" title="Allow Installment"/>
+    <string name="sectionLifecycleStatus" title="Section Status"
+      selection="insurance.section.lifecycle.status"/>
+    <boolean name="approveAccident" title="Approve Accident"/>
+    <one-to-many name="installmentList" title="Section Installments"
+      ref="com.axelor.apps.insurance.policy.db.InstallmentTable" mappedBy="section"/>
+    <one-to-many name="brokerList" title="Section Brokers"
+      ref="com.axelor.apps.insurance.policy.db.SectionBrokerTable" mappedBy="section"/>
+    <one-to-many name="commissionInvoiceList" title="Commission Invoices"
+      ref="com.axelor.apps.insurance.policy.db.CommissionInvoice" mappedBy="section"/>
+  </entity>
+</domain-models>

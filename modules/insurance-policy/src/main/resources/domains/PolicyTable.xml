@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domain-models xmlns="http://axelor.com/xml/ns/domain-models"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/domain-models https://axelor.com/xml/ns/domain-models/domain-models_8.2.xsd">
+  <module name="insurance-policy" package="com.axelor.apps.insurance.policy.db"/>
+
+  <entity name="PolicyTable">
+    <string name="policyId" title="Policy Id"/>
+    <string name="customerId" title="Customer Id"/>
+    <many-to-one name="customer" title="Customer" ref="com.axelor.apps.base.db.Partner"/>
+    <string name="typeOfPolicy" title="Type of Policy" selection="insurance.policy.type"/>
+    <string name="insuranceType" title="Insurance Type" selection="insurance.type"/>
+    <date name="issueDate" title="Issue Date"/>
+    <date name="effectiveDate" title="Effective Date"/>
+    <date name="endDate" title="End Date"/>
+    <string name="status" title="Policy Payment Status"
+      selection="insurance.policy.payment.status"/>
+    <string name="policyStatus" title="Policy Status" selection="insurance.policy.status"/>
+    <string name="policyKey" title="Policy Key"/>
+    <string name="zone" title="Region"/>
+    <string name="branch" title="Branch"/>
+    <string name="branchName" title="Branch Name"/>
+    <string name="sector" title="Sector"/>
+    <string name="productOfInsurance" title="Product Of Insurance"/>
+    <string name="marketSource" title="Market Source"/>
+    <string name="policyLifecycleStatus" title="Policy Lifecycle Status"
+      selection="insurance.policy.lifecycle.status"/>
+    <boolean name="distinguishedDisability" title="Distinguished Disability"/>
+    <string name="lineOfBusiness" title="Line Of Business"/>
+    <string name="customerAccount" title="Customer Account"/>
+    <string name="bookRatedGroup" title="Book Rated Group"/>
+    <string name="description" title="Description" large="true"/>
+    <one-to-many name="activityList" title="Activities"
+      ref="com.axelor.apps.insurance.policy.db.ActivityTable" mappedBy="policy"/>
+  </entity>
+</domain-models>

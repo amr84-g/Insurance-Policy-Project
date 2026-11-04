@@ -42,7 +42,7 @@ dependencyResolutionManagement {
 rootProject.name = "axelor-erp"
 
 def modules = []
-file("modules").traverse(type: groovy.io.FileType.DIRECTORIES, maxDepth: 1) { it ->
+file("modules").traverse(type: groovy.io.FileType.DIRECTORIES, maxDepth: 2) { it ->
   if (new File(it, "build.gradle").exists()) {
     modules.add(it)
   }

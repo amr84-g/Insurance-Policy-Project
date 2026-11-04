@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domain-models xmlns="http://axelor.com/xml/ns/domain-models"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/domain-models https://axelor.com/xml/ns/domain-models/domain-models_8.2.xsd">
+  <module name="insurance-policy" package="com.axelor.apps.insurance.policy.db"/>
+
+  <entity name="CommissionInvoice">
+    <string name="sectionId" title="Section Id"/>
+    <many-to-one name="section" title="Section"
+      ref="com.axelor.apps.insurance.policy.db.SectionTable"/>
+    <string name="brokerId" title="Broker Id"/>
+    <many-to-one name="broker" title="Broker" ref="com.axelor.apps.base.db.Partner"/>
+    <string name="journalNum" title="Journal Number"/>
+    <boolean name="paid" title="Paid"/>
+    <string name="paymentJournalNum" title="Payment Journal Number"/>
+    <integer name="collectionExpenseDays" title="Collection Expense Days"/>
+    <decimal name="collectionExpenseRate" title="Collection Expense Rate"/>
+    <string name="status" title="Status" selection="insurance.commission.invoice.status"/>
+    <string name="installmentRecId" title="Installment Reference Id"/>
+    <string name="paymentMethod" title="Payment Method"/>
+    <decimal name="exchangeRate" title="Exchange Rate"/>
+    <string name="currencyCode" title="Currency Code"/>
+    <date name="checkDate" title="Check Date"/>
+    <date name="transDate" title="Transaction Date"/>
+    <decimal name="commissionAmount" title="Commission Amount"/>
+    <string name="commissionType" title="Commission Type"
+      selection="insurance.commission.type"/>
+    <string name="paymentBatchRecId" title="Payment Batch Id"/>
+    <string name="branch" title="Branch"/>
+    <string name="regoin" title="Region"/>
+    <string name="sector" title="Sector"/>
+    <string name="taxGroup" title="Tax Group"/>
+    <string name="taxCode" title="Tax Code"/>
+    <boolean name="reviewed" title="Reviewed"/>
+    <boolean name="approved" title="Approved"/>
+    <decimal name="commissionAmountInTax" title="Commission Amount In Tax"/>
+    <date name="collectionDate" title="Collection Date"/>
+    <string name="lineOfBusiness" title="Line Of Business"/>
+    <string name="productOfInsurance" title="Product Of Insurance"/>
+    <string name="collectionCurrencyCode" title="Collection Currency Code"/>
+    <string name="policyId" title="Policy Id"/>
+    <string name="activityId" title="Activity Id"/>
+    <decimal name="installmentAmount" title="Installment Amount"/>
+    <decimal name="grossSection" title="Gross Section"/>
+    <date name="issueDate" title="Issue Date"/>
+    <date name="effectiveDate" title="Effective Date"/>
+    <decimal name="rate" title="Rate"/>
+    <boolean name="isCanceled" title="Canceled"/>
+    <string name="paymentBatchRecIdDisplay" title="Payment Batch Id Display"/>
+    <string name="vendGroup" title="Vendor Group"/>
+    <decimal name="brokerShare" title="Broker Share"/>
+    <string name="sectionBrokerCommissionType" title="Section Broker Commission Type"
+      selection="insurance.commission.type"/>
+  </entity>
+</domain-models>

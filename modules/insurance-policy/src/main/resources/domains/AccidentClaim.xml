@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domain-models xmlns="http://axelor.com/xml/ns/domain-models"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/domain-models https://axelor.com/xml/ns/domain-models/domain-models_8.2.xsd">
+  <module name="insurance-policy" package="com.axelor.apps.insurance.policy.db"/>
+
+  <entity name="AccidentClaim">
+    <string name="accidentId" title="Accident Id"/>
+    <many-to-one name="accident" title="Accident"
+      ref="com.axelor.apps.insurance.policy.db.AccidentTable"/>
+    <string name="policyId" title="Policy Id"/>
+    <string name="activityId" title="Activity Id"/>
+    <many-to-one name="activity" title="Activity"
+      ref="com.axelor.apps.insurance.policy.db.ActivityTable"/>
+    <decimal name="amount" title="Amount"/>
+    <string name="journalNum" title="Journal Number"/>
+    <date name="claimDate" title="Claim Date"/>
+    <date name="accidentDate" title="Accident Date"/>
+    <boolean name="paid" title="Paid"/>
+    <string name="movementId" title="Movement Id"/>
+    <string name="paymentJournalNum" title="Payment Journal Number"/>
+    <string name="claimType" title="Claim Type" selection="insurance.claim.type"/>
+    <boolean name="isConditionalPayment" title="Is Conditional Payment"/>
+    <boolean name="dxcIntegration" title="DXC Integration"/>
+    <boolean name="isRefund" title="Refund"/>
+    <string name="originalMovementKey" title="Original Movement Key"/>
+    <string name="aprId" title="APR Id"/>
+    <string name="refundJournalNum" title="Refund Journal Number"/>
+    <decimal name="refundedAmount" title="Refunded Amount"/>
+    <string name="batchId" title="Batch Id"/>
+    <date name="batchDate" title="Batch Date"/>
+    <string name="claimNumber" title="Claim Number"/>
+    <decimal name="taxAmount" title="Tax Amount"/>
+    <string name="taxCode" title="Tax Code"/>
+  </entity>
+</domain-models>

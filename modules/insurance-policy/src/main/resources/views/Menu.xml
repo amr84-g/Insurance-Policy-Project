@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/object-views https://axelor.com/xml/ns/object-views/object-views_8.2.xsd">
+  <menuitem name="insurance-policy-root" title="Insurance" order="-1800"
+    icon="shield-check"/>
+  <menuitem name="insurance-policy-menu" parent="insurance-policy-root" title="Policies"
+    action="insurance-policy.all" order="100"/>
+
+  <action-view name="insurance-policy.all" title="Insurance Policies"
+    model="com.axelor.apps.insurance.policy.db.PolicyTable">
+    <view type="cards" name="insurance-policy-cards"/>
+    <view type="form" name="insurance-policy-form"/>
+  </action-view>
+</object-views>

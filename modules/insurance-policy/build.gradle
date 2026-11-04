@@ -1,0 +1,12 @@
+plugins {
+  id 'com.axelor.app'
+}
+
+axelor {
+  title "Insurance Policy"
+  description "Insurance policy management module"
+}
+
+dependencies {
+  api project(":modules:axelor-base")
+}
